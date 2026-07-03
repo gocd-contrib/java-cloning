@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * {@link Accessor Functions} for {@link #ACCESSOR accessing} {@link Field}s.
@@ -99,11 +100,6 @@ class Fields {
          * @param dst the destination object
          */
         void copy(Field field, C cookie, Object src, Object dst) throws IllegalAccessException;
-    }
-
-    @FunctionalInterface
-    interface ThrowingSupplier<R> {
-        R apply() throws IllegalAccessException;
     }
 
     @FunctionalInterface
@@ -233,13 +229,13 @@ class Fields {
         }
     }
 
-    static <T> T handleWithContext(Field field, ThrowingSupplier<T> action) {
+    static <T> T handleWithContext(Field field, Supplier<T> action) {
         try {
-            return action.apply();
-        } catch (SecurityException | IllegalArgumentException | ReflectiveOperationException e) {
-            throw new CloningException(String.format("No access to field [%s] [%s] within class [%s]", field.getType(), field.getName(), field.getDeclaringClass()), e);
+            return action.get();
+        } catch (SecurityException | IllegalArgumentException e) {
+            throw cloningExceptionFor(field, e);
         } catch (CloningException e) {
-            throw new CloningException(String.format("No access to field [%s] [%s] within class [%s]", field.getType(), field.getName(), field.getDeclaringClass()), e.getCause());
+            throw cloningExceptionFor(field, e.getCause());
         }
     }
 
@@ -247,9 +243,13 @@ class Fields {
         try {
             action.run();
         } catch (SecurityException | IllegalArgumentException | ReflectiveOperationException e) {
-            throw new CloningException(String.format("No access to field [%s] [%s] within class [%s]", field.getType(), field.getName(), field.getDeclaringClass()), e);
+            throw cloningExceptionFor(field, e);
         } catch (CloningException e) {
-            throw new CloningException(String.format("No access to field [%s] [%s] within class [%s]", field.getType(), field.getName(), field.getDeclaringClass()), e.getCause());
+            throw cloningExceptionFor(field, e.getCause());
         }
+    }
+
+    private static CloningException cloningExceptionFor(Field field, Throwable t) {
+        return new CloningException(String.format("No access to field [%s] [%s] within class [%s]", field.getType(), field.getName(), field.getDeclaringClass()), t);
     }
 }
