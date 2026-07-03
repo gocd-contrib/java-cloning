@@ -4,7 +4,7 @@
 	<groupId>io.github.chadlwilson</groupId>
 	<artifactId>cloning</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.12.0-gocd</version>
+	<version>1.13.0-gocd</version>
 	<name>cloning</name>
 	<url>https://github.com/chadlwilson/cloning/</url>
 	<description><![CDATA[
@@ -42,6 +42,14 @@
 		<system>GitHub</system>
 		<url>https://github.com/chadlwilson/cloning/issues</url>
 	</issueManagement>
+	<developers>
+		<developer>
+			<id>kostaskougios</id>
+			<name>Kostas Kougios</name>
+			<email>kostas.kougios@googlemail.com</email>
+			<url>https://github.com/kostaskougios</url>
+		</developer>
+	</developers>
 	<build>
 		<plugins>
             <plugin>

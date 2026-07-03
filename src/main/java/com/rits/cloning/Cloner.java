@@ -416,15 +416,19 @@ public class Cloner {
         if (o == null) return null;
         if (o == this) return null;
 
-        // Prevent cycles, expensive but necessary
-        if (clones != null) {
-            T clone = (T) clones.get(o);
-            if (clone != null) {
-                return clone;
-            }
-        }
-
         Class<?> aClass = o.getClass();
+
+		// Fast path: most common immutable types - avoid all map lookups
+		// These classes are final and extremely common as field values,
+		// so checking them directly is faster than any map lookup
+		if (aClass == String.class || aClass == Integer.class || aClass == Long.class
+			|| aClass == Boolean.class || aClass == Double.class || aClass == Class.class
+			|| aClass == BigDecimal.class) {
+			return o;
+		}
+
+		// Check cloner cache before cycle detection. For immutable classes,
+		// this avoids the expensive IdentityHashMap.get() call entirely.
         IDeepCloner cloner = cloners.get(aClass);
         if (cloner == null) {
             cloner = findDeepCloner(aClass);
@@ -435,6 +439,15 @@ public class Cloner {
         } else if (cloner == NULL_CLONER) {
             return null;
         }
+
+		// Cycle detection - only needed for mutable objects
+		if (clones != null) {
+			T clone = (T) clones.get(o);
+			if (clone != null) {
+				return clone;
+			}
+		}
+
         return cloner.deepClone(o, clones);
     }
 
@@ -584,7 +597,7 @@ public class Cloner {
             shouldClone = new boolean[numFields];
             cookies = new Object[numFields];
             for (int i = 0; i < numFields; i++) {
-                shouldClone[i] = shouldCloneList.get(i);
+				shouldClone[i] = shouldCloneList.get(i) && !fields[i].getType().isPrimitive();
                 cookies[i] = Fields.ACCESSOR.getCookie(fields[i]);
             }
             instantiator = instantiationStrategy.getInstantiatorOf(clz);
