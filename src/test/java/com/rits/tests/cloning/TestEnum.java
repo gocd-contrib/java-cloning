@@ -1,5 +1,6 @@
 package com.rits.tests.cloning;
 
+@SuppressWarnings("ALL")
 public enum TestEnum
 {
 	A("a")
@@ -29,7 +30,7 @@ public enum TestEnum
 
 	private final String name;
 
-	private TestEnum(String name)
+	TestEnum(String name)
 	{
 		this.name = name;
 	}

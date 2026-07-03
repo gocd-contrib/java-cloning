@@ -6,26 +6,23 @@ import org.objenesis.instantiator.ObjectInstantiator;
 
 /**
  * @author kostantinos.kougios
- *
+ * <p>
  * 17 Jul 2012
  */
-public class ObjenesisInstantiationStrategy implements IInstantiationStrategy
-{
-	private final Objenesis	objenesis	= new ObjenesisStd();
+public class ObjenesisInstantiationStrategy implements IInstantiationStrategy {
+	private final Objenesis objenesis = new ObjenesisStd();
 
-	public <T> T newInstance(Class<T> c)
-	{
+	public <T> T newInstance(Class<T> c) {
 		return objenesis.newInstance(c);
 	}
 
-	public <T>ObjectInstantiator<T> getInstantiatorOf(Class<T> c) {
+	public <T> ObjectInstantiator<T> getInstantiatorOf(Class<T> c) {
 		return objenesis.getInstantiatorOf(c);
 	}
 
-	private static ObjenesisInstantiationStrategy	instance	= new ObjenesisInstantiationStrategy();
+	private static final ObjenesisInstantiationStrategy instance = new ObjenesisInstantiationStrategy();
 
-	public static ObjenesisInstantiationStrategy getInstance()
-	{
+	public static ObjenesisInstantiationStrategy getInstance() {
 		return instance;
 	}
 }

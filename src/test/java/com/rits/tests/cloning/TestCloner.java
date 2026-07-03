@@ -81,9 +81,9 @@ public class TestCloner {
         m.put(3, TestEnum.C);
         Map<Integer, TestEnum> clone = cloner.deepClone(m);
 
-        assertSame(clone.get(1), TestEnum.A);
-        assertSame(clone.get(2), TestEnum.B);
-        assertSame(clone.get(3), TestEnum.C);
+        assertSame(TestEnum.A, clone.get(1));
+        assertSame(TestEnum.B, clone.get(2));
+        assertSame(TestEnum.C, clone.get(3));
     }
 
     @Test
@@ -112,6 +112,7 @@ public class TestCloner {
         assertSame(o, c);
     }
 
+    @SuppressWarnings("ALL")
     class X {
         private X(int x) {
             x = 5;
@@ -149,7 +150,7 @@ public class TestCloner {
 
         final A a = new A() {
         };
-        assertNotSame(a.getClass(), A.class);
+        assertNotSame(A.class, a.getClass());
         assertSame(a, cloner.deepClone(a));
     }
 
@@ -279,9 +280,8 @@ public class TestCloner {
 
         @Override
         public boolean equals(final Object obj) {
-            if (obj instanceof Simple) {
-                final Simple s = (Simple) obj;
-                return s.getS().equals(getS()) && s.getX() == getX();
+            if (obj instanceof Simple si) {
+				return si.getS().equals(getS()) && si.getX() == getX();
             }
             return super.equals(obj);
         }
@@ -303,7 +303,7 @@ public class TestCloner {
         simple.setX(30);
         assertNotSame(simple.getS(), clone.getS());
         assertNotEquals(simple.getS(), clone.getS());
-        assertFalse(simple.getX() == clone.getX());
+		assertNotSame(simple.getX(), clone.getX());
     }
 
     protected class Complex {
@@ -380,7 +380,7 @@ public class TestCloner {
         shallowClone.setX(10);
         assertTrue(shallowClone.getX() != simple1.getX());
         shallowClone.setS("x");
-        assertTrue(shallowClone.getS() != simple1.getS());
+		assertNotSame(shallowClone.getS(), simple1.getS());
     }
 
     @Test
@@ -741,7 +741,7 @@ public class TestCloner {
     public void testEnumIssue9() {
         final TestEnum original = TestEnum.A;
         final TestEnum clone = cloner.deepClone(original);
-        assertSame(clone, original);
+        assertSame(original, clone);
     }
 
     @Test
@@ -826,18 +826,6 @@ public class TestCloner {
         List<String> clone = cloner.deepClone(b);
         assertEquals(1, clone.size());
     }
-
-//	public void testHashMapIterator() {
-//		HashMap<Integer, String> m = new HashMap<Integer, String>();
-//		m.put(1, "one");
-//		m.put(2, "two");
-//
-//		Iterator<Map.Entry<Integer, String>> it = m.entrySet().iterator();
-//		m.put(3, "three");
-//
-//		Iterator<Map.Entry<Integer, String>> cIt = cloner.deepClone(it);
-//		cIt.next(); // throws ConcurrentModificationException
-//	}
 
     @Test
     public void testConcurrentLinkedQueue() {
@@ -928,7 +916,7 @@ public class TestCloner {
         set.add(new Object());
 
         Set<Object> clonedSet = cloner.deepClone(set);
-        assertTrue(clonedSet instanceof LinkedHashSet, "Cloned LinkedHashSet not instanceof LinkedHashSet");
+		assertInstanceOf(LinkedHashSet.class, clonedSet, "Cloned LinkedHashSet not instanceof LinkedHashSet");
 
 
         Object first = clonedSet.toArray()[0];

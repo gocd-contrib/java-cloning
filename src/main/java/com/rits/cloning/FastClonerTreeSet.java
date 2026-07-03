@@ -5,9 +5,9 @@ import java.util.TreeSet;
 
 public class FastClonerTreeSet implements IFastCloner {
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public Object clone(Object t, IDeepCloner cloner, Map<Object, Object> clones) {
-		TreeSet<?> treeSet = (TreeSet<?>) t;
+		TreeSet treeSet = (TreeSet) t;
 		TreeSet result = new TreeSet(treeSet.comparator());
 		for (Object o : treeSet) {
 			result.add(cloner.deepClone(o, clones));

@@ -15,8 +15,8 @@ public class FastClonerArrayListSubList implements IFastCloner {
 		List al = (List) t;
 		int size = al.size();
 		ArrayList l = new ArrayList(size);
-		for (int i = 0; i < size; i++) {
-			l.add(cloner.deepClone(al.get(i), clones));
+		for (Object o : al) {
+			l.add(cloner.deepClone(o, clones));
 		}
 		return l;
 	}

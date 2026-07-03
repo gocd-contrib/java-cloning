@@ -10,5 +10,5 @@ import java.util.Map;
  * 21 May 2009
  */
 public interface IFastCloner {
-    public Object clone(Object t, IDeepCloner cloner, Map<Object, Object> clones);
+    Object clone(Object t, IDeepCloner cloner, Map<Object, Object> clones);
 }

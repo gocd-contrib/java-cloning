@@ -25,7 +25,7 @@ public class BenchmarkCloner
 
         // data
         final URL url = new URL("http://localhost");
-        final HashMap<String, Integer> m = new HashMap<String, Integer>();
+        final HashMap<String, Integer> m = new HashMap<>();
         m.put("kostas", 100);
         m.put("tina", 120);
         m.put("george", 150);
@@ -35,7 +35,7 @@ public class BenchmarkCloner
         // benchmark
         while (j-- > 0)
 		{
-			final ArrayList<URL> l = new ArrayList<URL>();
+			final ArrayList<URL> l = new ArrayList<>();
 			for (int i = 0; i < 5; i++)
 			{
 				l.add(url);

@@ -5,6 +5,7 @@ package com.rits.tests.cloning;
  *
  * 7 Apr 2009
  */
+@SuppressWarnings("UnusedAssignment")
 public class DC implements Comparable<DC>
 {
 	public int	id	= -1;

@@ -1,5 +1,7 @@
 package com.rits.tests.perspectives.model;
 
+import java.util.Arrays;
+
 /**
  * @author kostantinos.kougios
  *
@@ -12,9 +14,6 @@ public class Products extends ProductsCollection<Product>
 	public Products(final Product... ps)
 	{
 		super();
-		for (final Product p : ps)
-		{
-			add(p);
-		}
+		this.addAll(Arrays.asList(ps));
 	}
 }

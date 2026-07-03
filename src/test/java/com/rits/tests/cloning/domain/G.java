@@ -5,6 +5,7 @@ package com.rits.tests.cloning.domain;
  *
  * 1 Apr 2011
  */
+@SuppressWarnings("ClassCanBeRecord")
 public class G
 {
 	private final A	a;

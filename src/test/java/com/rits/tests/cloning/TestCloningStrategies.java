@@ -20,6 +20,7 @@ public class TestCloningStrategies {
 	@interface Ann {
 	}
 
+	@SuppressWarnings("InnerClassMayBeStatic")
 	class Data {
 	}
 	class AnnotatedExample {

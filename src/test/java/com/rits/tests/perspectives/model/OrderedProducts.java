@@ -1,5 +1,7 @@
 package com.rits.tests.perspectives.model;
 
+import java.util.Arrays;
+
 /**
  * @author kostantinos.kougios
  *
@@ -12,10 +14,7 @@ public class OrderedProducts extends ProductsCollection<OrderedProduct>
 	public OrderedProducts(final OrderedProduct... ops)
 	{
 		super();
-		for (final OrderedProduct p : ops)
-		{
-			add(p);
-		}
+		this.addAll(Arrays.asList(ops));
 	}
 
 	// extra behaviour/properties for the ordered products collection can go here

@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>io.github.chadlwilson</groupId>
+	<groupId>com.github.gocd-contrib</groupId>
 	<artifactId>cloning</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.13.0-gocd</version>
+	<version>2.0.0-jdk21</version>
 	<name>cloning</name>
-	<url>https://github.com/chadlwilson/cloning/</url>
+	<url>https://github.com/gocd-contrib/java-cloning</url>
 	<description><![CDATA[
                 The cloning library is a small, open source (Apache
                 licensed) Java library which deep-clones objects. The
@@ -23,26 +23,25 @@
 			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
 		</license>
 	</licenses>
-	<developers>
-		<developer>
-			<name>Chad Wilson</name>
-			<email>29788154+chadlwilson@users.noreply.github.com</email>
-			<organizationUrl>https://github.com/chadlwilson</organizationUrl>
-		</developer>
-	</developers>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<scm>
-		<connection>scm:git:https://github.com/chadlwilson/cloning.git</connection>
-		<developerConnection>scm:git:https://github.com/chadlwilson/cloning.git</developerConnection>
-		<url>https://github.com/chadlwilson/cloning</url>
+		<connection>scm:git:https://github.com/gocd-contrib/java-cloning.git</connection>
+		<developerConnection>scm:git:https://github.com/gocd-contrib/java-cloning.git</developerConnection>
+		<url>https://github.com/gocd-contrib/java-cloning</url>
 	</scm>
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/chadlwilson/cloning/issues</url>
+		<url>https://github.com/gocd-contrib/java-cloning/issues</url>
 	</issueManagement>
 	<developers>
+		<developer>
+			<name>Chad Wilson</name>
+			<email>29788154+chadlwilson@users.noreply.github.com</email>
+			<url>https://github.com/chadlwilson</url>
+			<organizationUrl>https://github.com/gocd-contrib</organizationUrl>
+		</developer>
 		<developer>
 			<id>kostaskougios</id>
 			<name>Kostas Kougios</name>
@@ -62,7 +61,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.15.0</version>
 				<configuration>
-					<release>17</release>
+					<release>21</release>
 				</configuration>
 			</plugin>
             <plugin>
@@ -108,50 +107,11 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>3.3.1</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.8.0</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/dist.xml</descriptor>
-					</descriptors>
-					<descriptorRefs>
-						<descriptorRef>project</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>6.0.2</version>
+				<version>6.0.0</version>
 				<extensions>true</extensions>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.4</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.21.0</version>
-                <configuration>
-                    <ignoredVersions>.*-(alpha|beta|M)[-0-9]+</ignoredVersions>
-                </configuration>
-            </plugin>
 		</plugins>
 	</build>
 	<dependencies>

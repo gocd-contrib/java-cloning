@@ -10,6 +10,7 @@ import java.util.Objects;
  * <p>
  * 16 Dez 2019
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class E {
 
 
@@ -28,9 +29,8 @@ public class E {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof E)) return false;
-        E e = (E) o;
-        return Objects.equals(id, e.id) &&
+        if (!(o instanceof E e)) return false;
+		return Objects.equals(id, e.id) &&
                 Objects.equals(a, e.a);
     }
 

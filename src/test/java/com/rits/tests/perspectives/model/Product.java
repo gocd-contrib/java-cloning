@@ -42,9 +42,8 @@ public class Product
 	@Override
 	public boolean equals(final Object obj)
 	{
-		if (obj instanceof Product)
+		if (obj instanceof Product p)
 		{
-			final Product p = (Product) obj;
 			return p.getSku().equals(sku);
 		}
 		return super.equals(obj);

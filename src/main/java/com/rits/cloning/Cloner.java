@@ -501,7 +501,8 @@ public class Cloner {
                 clones.put(o, newInstance);
             }
             if (primitive || immutable) {
-                System.arraycopy(o, 0, newInstance, 0, length);
+				//noinspection SuspiciousSystemArraycopy
+				System.arraycopy(o, 0, newInstance, 0, length);
             } else {
                 if (clones == null) {
                     for (int i = 0; i < length; i++) {
@@ -556,9 +557,8 @@ public class Cloner {
         }
 
         public <T> T deepClone(T o, Map<Object, Object> clones) {
-            if (o instanceof IFreezable) {
-                IFreezable f = (IFreezable) o;
-                if (f.isFrozen()) return o;
+            if (o instanceof IFreezable f) {
+				if (f.isFrozen()) return o;
             }
             return cloner.deepClone(o, clones);
         }

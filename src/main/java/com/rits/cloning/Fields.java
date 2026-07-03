@@ -36,17 +36,12 @@ class Fields {
         /**
          * @return the {@link Accessor} of the specified {@link AccessorType} or closest available match.
          */
-        @SuppressWarnings({"unchecked", "rawtypes"})
+        @SuppressWarnings("rawtypes")
         private static Accessor<Object> resolve(AccessorType type) {
-            switch (type) {
-                case AUTO:
-                case HANDLES:
-                    return (Accessor) VarHandleAccessor.INSTANCE;
-                case REFLECTION:
-                    return (Accessor) ReflectionAccessor.INSTANCE;
-                default:
-                    throw new IllegalArgumentException("Unknown accessor type: " + type);
-            }
+			return switch (type) {
+		        case AUTO, HANDLES -> (Accessor) VarHandleAccessor.INSTANCE;
+		        case REFLECTION -> (Accessor) ReflectionAccessor.INSTANCE;
+			};
         }
     }
 
